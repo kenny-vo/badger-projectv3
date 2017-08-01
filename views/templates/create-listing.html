@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+      <form class="form-horizontal" ng-submit="listingsIndexCtrl.createListing()">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Create Request</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label">Topic</label>
+            <div class="col-md-4">
+            <input id="name" ng-model="listingsIndexCtrl.newListing.topic" type="text" class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label">Budget</label>
+            <div class="col-md-4">
+            <input ng-model="listingsIndexCtrl.newListing.budget" type="text" class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label">Description</label>
+            <div class="col-md-4">
+            <input ng-model="listingsIndexCtrl.newListing.description" type="text" class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="col-md-4 control-label">Location</label>
+            <div class="col-md-4">
+              <textarea class="form-control" ng-model="listingsIndexCtrl.newListing.location"></textarea>
+            </div>
+          </div>
+
+
+          <!-- Button -->
+          <div class="form-group">
+            <label class="col-md-4 control-label">Save Request</label>
+            <div class="col-md-4">
+              <button class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

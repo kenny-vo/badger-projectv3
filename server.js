@@ -105,3 +105,17 @@ app.delete("/contacts/:id", function(req, res) {
     }
   });
 });
+
+
+app.get('/api', controllers.api.index);
+
+app.get('/api/listings', controllers.listings.index);
+app.get('/api/listings/:listingId', controllers.listings.show);
+app.post('/api/listings', controllers.listings.create);
+app.delete('/api/listings/:listingId', controllers.listings.destroy);
+
+// ALL OTHER ROUTES
+
+app.get('*', function homepage (req, res) {
+  res.sendFile(__dirname + '/views/index.html');
+});
