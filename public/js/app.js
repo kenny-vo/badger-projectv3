@@ -22,7 +22,12 @@ angular
             .when("/about", {
                 templateUrl: "about.html"
             })
-
+            .when("/profile", {
+                templateUrl: "profile.html"
+            })
+            .when("/messages", {
+                templateUrl: "messages.html"
+            })
             .when("/contact/:contactId", {
                 controller: "EditContactController",
                 templateUrl: "contact.html"
