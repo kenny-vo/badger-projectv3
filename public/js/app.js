@@ -113,7 +113,7 @@ angular
 
         $scope.toggleEdit = function() {
             $scope.editMode = true;
-            $scope.contactFormUrl = "contact-form.html";
+            $scope.contactFormUrl = "templates/contact-form.html";
         }
 
         $scope.back = function() {
