@@ -19,6 +19,10 @@ angular
                 controller: "LoginController",
                 templateUrl: "login.html"
             })
+            .when("/about", {
+                templateUrl: "about.html"
+            })
+
             .when("/contact/:contactId", {
                 controller: "EditContactController",
                 templateUrl: "contact.html"
