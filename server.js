@@ -33,6 +33,9 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
 // CONTACTS API ROUTES BELOW
 
+app.get('/api', controllers.api.index);
+
+
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
