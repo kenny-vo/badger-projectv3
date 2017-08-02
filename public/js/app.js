@@ -13,27 +13,27 @@ angular
             })
             .when("/new/contact", {
                 controller: "NewContactController",
-                templateUrl: "contact-form.html"
+                templateUrl: "/templates/contact-form.html"
             })
             .when("/login", {
                 controller: "LoginController",
-                templateUrl: "login.html"
+                templateUrl: "/templates/login.html"
             })
             .when("/about", {
-                templateUrl: "about.html"
+                templateUrl: "/templates/about.html"
             })
             .when("/search", {
                 templateUrl: "/templates/search.html"
             })
             .when("/profile", {
-                templateUrl: "profile.html"
+                templateUrl: "/templates/profile.html"
             })
             .when("/messages", {
-                templateUrl: "messages.html"
+                templateUrl: "/templates/messages.html"
             })
             .when("/contact/:contactId", {
                 controller: "EditContactController",
-                templateUrl: "contact.html"
+                templateUrl: "/templates/contact.html"
             })
             .otherwise({
                 redirectTo: "/"
