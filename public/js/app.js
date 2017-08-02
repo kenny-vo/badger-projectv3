@@ -1,5 +1,6 @@
-angular.module("contactsApp", ['ngRoute'])
-    .config(function($routeProvider) {
+angular
+  .module("contactsApp", ['ngRoute'])
+  .config(function($routeProvider) {
         $routeProvider
             .when("/", {
                 templateUrl: "list.html",
