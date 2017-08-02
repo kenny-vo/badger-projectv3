@@ -7,7 +7,7 @@
   <div>
     <p>
       <label>Topic</label>
-      <input id="name" class="form-control" type="text" ng-model="contact.topic" required>
+      <input id="name" class="form-control" type="text" ng-model="contact.firstName" required>
     </p>
     <p>
       <label>Description</label>
@@ -15,11 +15,15 @@
     </p>
     <p>
       <label>Budget</label>
-      <input id="name" class="form-control" type="text" ng-model="contact.budget" required>
+      <input id="name" class="form-control" type="text" ng-model="contact.lastName" required>
     </p>
     <p>
       <label>Location</label>
-      <input id="name" class="form-control" type="text" ng-model="contact.location" required>
+      <input id="name" class="form-control" type="text" ng-model="contact.email" required>
+    </p>
+    <p>
+      <label>Phone (Mobile)</label>
+      <input id="name" class="form-control" type="text" ng-model="contact.phone.mobile">
     </p>
     <p>
       <button style="margin-top:20px" class="btn btn-default" ng-click="saveContact(contact)">Save</button>

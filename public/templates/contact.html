@@ -1,7 +1,7 @@
 <div class = "row">
   <div class="col-md-6">
     <h2>
-      {{ contact.topic }}
+      {{ contact.firstName }}
     </h2>
   </div>
   <div class="col-md-3">
@@ -14,9 +14,10 @@
 </div>
 <div ng-hide="editMode" class="container">
   <div>
-    <p ng-if="contact.location">Location: {{ contact.location }}</p>
+    <p ng-if="contact.email">Location: {{ contact.email }}</p>
     <p ng-if="contact.description">Description: {{ contact.description }} </p>
-    <p ng-if="contact.budget">Budget: {{ contact.budget }} </p>
+    <p ng-if="contact.phone.mobile">Budget: {{ contact.lastName }} </p>
+    <p ng-if="contact.phone.work">Phone: {{ contact.phone.work }} </p>
 
     <p>
       <button style="margin-top:20px" class="btn btn-default" ng-click="toggleEdit()">Edit</button>
