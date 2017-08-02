@@ -1,7 +1,7 @@
 {
-  "name": "MEAN",
+  "name": "badger-project",
   "version": "1.0.0",
-  "description": "A MEAN app that allows users to manage contact lists",
+  "description": "Identifly, a B2B marketplace",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chrisckchang/mean-contactlist.git"
+    "url": "https://github.com/kenny-vo/badger-projectv3.git"
   },
   "keywords": [
     "MEAN",
     "Express",
     "Angular"
   ],
-  "author": "Chris Chang",
+  "author": "Kenny Vo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrisckchang/mean-contactlist/issues"
+    "url": "https://github.com/kenny-vo/badger-projectv3.git"
   },
-  "homepage": "https://github.com/chrisckchang/mean-contactlist",
+  "homepage": "https://github.com/kenny-vo/badger-projectv3.git",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
