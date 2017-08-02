@@ -22,6 +22,9 @@ angular
             .when("/about", {
                 templateUrl: "about.html"
             })
+            .when("/search", {
+                templateUrl: "/templates/search.html"
+            })
             .when("/profile", {
                 templateUrl: "profile.html"
             })
