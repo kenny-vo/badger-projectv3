@@ -31,6 +31,7 @@ angular
                 templateUrl: "/templates/search.html"
             })
             .when("/profile", {
+                constroller: "ProfileController"
                 templateUrl: "/templates/profile.html"
             })
             .when("/messages", {
@@ -214,3 +215,20 @@ angular
         };
       }]
     );
+    .controller('ProfileController', ['$scope', '$auth', '$http', '$location',
+    	function ($scope, $auth, $http, $location) {
+        // if user is not logged in, redirect to '/login'
+        if ($scope.currentUser === undefined) {
+          $location.path('/login');
+        }
+
+        $scope.editProfile = function() {
+          $http.put('/api/me', $scope.currentUser)
+            .then(function (response) {
+              $scope.showEditForm = false;
+            }, function (error) {
+              console.error(error);
+              $auth.removeToken();
+            });
+        };
+    }]);
