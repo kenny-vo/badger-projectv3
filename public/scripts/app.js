@@ -1,5 +1,8 @@
 angular
-  .module("contactsApp", ['ngRoute'])
+  .module("contactsApp", [
+    'ngRoute',
+    'satellizer'
+  ])
   .config(function($routeProvider) {
         $routeProvider
             .when("/", {
@@ -16,6 +19,10 @@ angular
                 templateUrl: "/templates/contact-form.html"
             })
             .when("/login", {
+                controller: "LoginController",
+                templateUrl: "/templates/login.html"
+            })
+            .when("/signup", {
                 controller: "LoginController",
                 templateUrl: "/templates/login.html"
             })
