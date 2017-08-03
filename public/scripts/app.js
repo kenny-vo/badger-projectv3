@@ -1,47 +1,51 @@
+var app = angular.module('contactsApp', ['ngRoute', 'satellizer']);
+
+
+
 angular
   .module("contactsApp", ['ngRoute', 'satellizer'])
   .config(function($routeProvider, $locationProvider) {
         $routeProvider
-      .when("/", {
-          templateUrl: "list.html",
-          controller: "ListController",
-          resolve: {
-              contacts: function(Contacts) {
-                  return Contacts.getContacts();
-              }
-          }
-      })
-      .when("/new/contact", {
-          controller: "NewContactController",
-          templateUrl: "/templates/contact-form.html"
-      })
-      .when("/login", {
-          controller: "AuthController",
-          templateUrl: "/templates/login.html"
-      })
-      .when("/register", {
-          controller: "AuthController",
-          templateUrl: "/templates/signup.html"
-      })
-      .when("/about", {
-          templateUrl: "/templates/about.html"
-      })
-      .when("/search", {
-          templateUrl: "/templates/search.html"
-      })
-      .when("/profile", {
-          templateUrl: "/templates/profile.html"
-      })
-      .when("/messages", {
-          templateUrl: "/templates/messages.html"
-      })
-      .when("/contact/:contactId", {
-          controller: "EditContactController",
-          templateUrl: "/templates/contact.html"
-      })
-      .otherwise({
-          redirectTo: "/"
-      })
+            .when("/", {
+                templateUrl: "list.html",
+                controller: "ListController",
+                resolve: {
+                    contacts: function(Contacts) {
+                        return Contacts.getContacts();
+                    }
+                }
+            })
+            .when("/new/contact", {
+                controller: "NewContactController",
+                templateUrl: "/templates/contact-form.html"
+            })
+            .when("/login", {
+                controller: "AuthController",
+                templateUrl: "/templates/login.html"
+            })
+            .when("/register", {
+                controller: "AuthController",
+                templateUrl: "/templates/signup.html"
+            })
+            .when("/about", {
+                templateUrl: "/templates/about.html"
+            })
+            .when("/search", {
+                templateUrl: "/templates/search.html"
+            })
+            .when("/profile", {
+                templateUrl: "/templates/profile.html"
+            })
+            .when("/messages", {
+                templateUrl: "/templates/messages.html"
+            })
+            .when("/contact/:contactId", {
+                controller: "EditContactController",
+                templateUrl: "/templates/contact.html"
+            })
+            .otherwise({
+                redirectTo: "/"
+            })
     })
     .service("Contacts", function($http) {
         this.getContacts = function() {
@@ -91,25 +95,24 @@ angular
                 });
         }
     })
-.controller("ListController", function(contacts, $scope) {
-    $scope.contacts = contacts.data;
-})
-.controller("NewContactController", function($scope, $location, Contacts) {
-    $scope.back = function() {
-        $location.path("#/");
-    }
+    .controller("ListController", function(contacts, $scope) {
+        $scope.contacts = contacts.data;
+    })
+    .controller("NewContactController", function($scope, $location, Contacts) {
+        $scope.back = function() {
+            $location.path("#/");
+        }
 
-    $scope.saveContact = function(contact) {
-        Contacts.createContact(contact).then(function(doc) {
-            var contactUrl = "/contact/" + doc.data._id;
-            $location.path(contactUrl);
-        }, function(response) {
-            alert(response);
-        });
-    }
-})
-
-.controller("EditContactController", function($scope, $routeParams, Contacts) {
+        $scope.saveContact = function(contact) {
+            Contacts.createContact(contact).then(function(doc) {
+                var contactUrl = "/contact/" + doc.data._id;
+                $location.path(contactUrl);
+            }, function(response) {
+                alert(response);
+            });
+        }
+    })
+    .controller("EditContactController", function($scope, $routeParams, Contacts) {
         Contacts.getContact($routeParams.contactId).then(function(doc) {
             $scope.contact = doc.data;
         }, function(response) {
@@ -135,8 +138,10 @@ angular
         $scope.deleteContact = function(contactId) {
             Contacts.deleteContact(contactId);
         }
-});
-.controller('AuthController', ['$scope', '$auth', '$location',
+    });
+
+
+app.controller('AuthController', ['$scope', '$auth', '$location',
   function ($scope, $auth, $location) {
     // if $scope.currentUser, redirect to '/profile'
     if ($scope.currentUser) {
