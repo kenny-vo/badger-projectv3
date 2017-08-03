@@ -138,51 +138,50 @@ angular
         $scope.deleteContact = function(contactId) {
             Contacts.deleteContact(contactId);
         }
-    });
+    })
 
-
-app.controller('AuthController', ['$scope', '$auth', '$location',
-  function ($scope, $auth, $location) {
-    // if $scope.currentUser, redirect to '/profile'
-    if ($scope.currentUser) {
-      $location.path('/profile');
-    }
-
-    // clear sign up / login forms
-    $scope.user = {};
-
-    $scope.signup = function() {
-      // signup (https://github.com/sahat/satellizer#authsignupuser-options)
-      $auth.signup($scope.user)
-        .then(function (response) {
-          // set token (https://github.com/sahat/satellizer#authsettokentoken)
-          $auth.setToken(response.data.token);
-          // call $scope.isAuthenticated to set $scope.currentUser
-          $scope.isAuthenticated();
-          // clear sign up form
-          $scope.user = {};
-          // redirect to '/profile'
+    .controller('AuthController', ['$scope', '$auth', '$location',
+      function ($scope, $auth, $location) {
+        // if $scope.currentUser, redirect to '/profile'
+        if ($scope.currentUser) {
           $location.path('/profile');
-        }, function (error) {
-          console.error(error);
-        });
-    };
+        }
 
-    $scope.login = function() {
-      // login (https://github.com/sahat/satellizer#authloginuser-options)
-      $auth.login($scope.user)
-        .then(function (response) {
-          // set token (https://github.com/sahat/satellizer#authsettokentoken)
-          $auth.setToken(response.data.token);
-          // call $scope.isAuthenticated to set $scope.currentUser
-          $scope.isAuthenticated();
-          // clear sign up form
-          $scope.user = {};
-          // redirect to '/profile'
-          $location.path('/profile');
-        }, function (error) {
-          console.error(error);
-        });
-    };
-  }]
-);
+        // clear sign up / login forms
+        $scope.user = {};
+
+        $scope.signup = function() {
+          // signup (https://github.com/sahat/satellizer#authsignupuser-options)
+          $auth.signup($scope.user)
+            .then(function (response) {
+              // set token (https://github.com/sahat/satellizer#authsettokentoken)
+              $auth.setToken(response.data.token);
+              // call $scope.isAuthenticated to set $scope.currentUser
+              $scope.isAuthenticated();
+              // clear sign up form
+              $scope.user = {};
+              // redirect to '/profile'
+              $location.path('/profile');
+            }, function (error) {
+              console.error(error);
+            });
+        };
+
+        $scope.login = function() {
+          // login (https://github.com/sahat/satellizer#authloginuser-options)
+          $auth.login($scope.user)
+            .then(function (response) {
+              // set token (https://github.com/sahat/satellizer#authsettokentoken)
+              $auth.setToken(response.data.token);
+              // call $scope.isAuthenticated to set $scope.currentUser
+              $scope.isAuthenticated();
+              // clear sign up form
+              $scope.user = {};
+              // redirect to '/profile'
+              $location.path('/profile');
+            }, function (error) {
+              console.error(error);
+            });
+        };
+      }]
+    );
