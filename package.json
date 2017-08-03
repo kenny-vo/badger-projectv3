@@ -23,8 +23,14 @@
   },
   "homepage": "https://github.com/kenny-vo/badger-projectv3.git",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.13.3",
+    "dotenv": "^4.0.0",
     "express": "^4.13.3",
-    "mongodb": "^2.0.43"
+    "hbs": "^4.0.1",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.18.1",
+    "mongodb": "^2.0.43",
+    "mongoose": "^4.11.5"
   }
 }

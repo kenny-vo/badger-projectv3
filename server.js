@@ -3,12 +3,22 @@ var path = require("path");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
+var hbs = require('hbs');
+var auth = require('./resources/auth');
 
 var CONTACTS_COLLECTION = "contacts";
 
+
+// require and load dotenv
+require('dotenv').load();
+
 var app = express();
 app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+var User = require('./models/user');
+
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
