@@ -43,6 +43,10 @@ angular
             .otherwise({
                 redirectTo: "/"
             })
+      $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+      });
     })
     .service("Contacts", function($http) {
         this.getContacts = function() {
