@@ -1,5 +1,5 @@
 angular
-  .module("contactsApp", ['ngRoute', 'satellizer'])
+  .module("contactsApp", ['ngRoute'])
   .config(function($routeProvider) {
         $routeProvider
             .when("/", {
@@ -39,9 +39,6 @@ angular
                 redirectTo: "/"
             })
     })
-
-    .service('Account', Account)
-
     .service("Contacts", function($http) {
         this.getContacts = function() {
             return $http.get("/contacts").
@@ -90,10 +87,6 @@ angular
                 });
         }
     })
-
-    .controller('SignupController', SignupController)
-  
-
     .controller("ListController", function(contacts, $scope) {
         $scope.contacts = contacts.data;
     })
