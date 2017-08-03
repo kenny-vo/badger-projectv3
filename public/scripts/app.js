@@ -1,5 +1,5 @@
 angular
-  .module("contactsApp", ['ngRoute', 'satellizer'])
+  .module("contactsApp", ['ngRoute'])
   .config(function($routeProvider) {
         $routeProvider
             .when("/", {
