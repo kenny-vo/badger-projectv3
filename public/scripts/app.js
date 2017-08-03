@@ -1,7 +1,5 @@
 angular
-  .module("contactsApp", [
-    'ngRoute'
-  ])
+  .module("contactsApp", ['ngRoute'])
   .config(function($routeProvider) {
         $routeProvider
             .when("/", {
