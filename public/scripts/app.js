@@ -31,7 +31,7 @@ angular
                 templateUrl: "/templates/search.html"
             })
             .when("/profile", {
-                constroller: "ProfileController"
+                constroller: "ProfileController",
                 templateUrl: "/templates/profile.html"
             })
             .when("/messages", {
@@ -181,7 +181,7 @@ angular
             });
         };
       }]
-    );
+    )
     .controller('MainCtrl', ['$scope', '$auth', '$http', '$location',
     	function ($scope, $auth, $http, $location) {
         $scope.isAuthenticated = function() {
@@ -214,7 +214,7 @@ angular
             });
         };
       }]
-    );
+    )
     .controller('ProfileController', ['$scope', '$auth', '$http', '$location',
     	function ($scope, $auth, $http, $location) {
         // if user is not logged in, redirect to '/login'
