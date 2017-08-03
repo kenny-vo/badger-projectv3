@@ -124,6 +124,26 @@ app.delete("/contacts/:id", function(req, res) {
  * Auth Routes
  */
 
+ app.get('/api/me', auth.ensureAuthenticated, function (req, res) {
+   User.findById(req.user, function (err, user) {
+     res.send(user.populate('posts'));
+   });
+ });
+
+ app.put('/api/me', auth.ensureAuthenticated, function (req, res) {
+   User.findById(req.user, function (err, user) {
+     if (!user) {
+       return res.status(400).send({ message: 'User not found.' });
+     }
+     user.displayName = req.body.displayName || user.displayName;
+     user.username = req.body.username || user.username;
+     user.email = req.body.email || user.email;
+     user.save(function(err) {
+       res.status(200).end();
+     });
+   });
+ });
+
 app.post('/auth/signup', function (req, res) {
   User.findOne({ email: req.body.email }, function (err, existingUser) {
     if (existingUser) {
