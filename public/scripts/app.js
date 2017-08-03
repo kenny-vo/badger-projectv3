@@ -1,6 +1,3 @@
-var app = angular.module('contactsApp', ['ngRoute', 'satellizer']);
-
-
 
 angular
   .module("contactsApp", ['ngRoute', 'satellizer'])
@@ -141,7 +138,7 @@ angular
     });
 
 
-app.controller('AuthController', ['$scope', '$auth', '$location',
+.controller('AuthController', ['$scope', '$auth', '$location',
   function ($scope, $auth, $location) {
     // if $scope.currentUser, redirect to '/profile'
     if ($scope.currentUser) {
