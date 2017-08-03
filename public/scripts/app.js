@@ -1,7 +1,6 @@
 angular
   .module("contactsApp", [
-    'ngRoute',
-    'satellizer'
+    'ngRoute'
   ])
   .config(function($routeProvider) {
         $routeProvider
