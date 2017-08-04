@@ -56,9 +56,6 @@ function handleError(res, reason, message, code) {
  *    GET: finds all contacts
  *    POST: creates a new contact
  */
- 
- app.get('/api', controllers.api.index);
-
 
 app.get("/contacts", function(req, res) {
   db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
