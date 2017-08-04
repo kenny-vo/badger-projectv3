@@ -138,13 +138,15 @@ angular
             });
         }
     })
-    .controller("VendorController", function(vendors, $scope, $location, Vendors) {
+    .controller("VendorController", function(vendors, $scope, $location, Vendors, $route) {
+        $scope.back = function() {
+            $location.path("#/");
+        }
         $scope.vendors = vendors.data;
 
         $scope.saveVendor = function(vendor) {
             Vendors.createVendor(vendor).then(function(doc) {
-                var vendorUrl = "/new/vendor";
-                $location.path(vendorUrl);
+                $route.reload();
             }, function(response) {
                 alert(response);
             });
