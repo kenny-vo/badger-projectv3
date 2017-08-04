@@ -143,7 +143,8 @@ angular
 
         $scope.saveVendor = function(vendor) {
             Vendors.createVendor(vendor).then(function(doc) {
-
+                var vendorUrl = "/new/vendor";
+                $location.path(vendorUrl);
             }, function(response) {
                 alert(response);
             });
