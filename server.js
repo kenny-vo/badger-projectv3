@@ -8,6 +8,8 @@ var auth = require('./resources/auth');
 
 var CONTACTS_COLLECTION = "contacts";
 var VENDORS_COLLECTION = "vendors";
+var USERS_COLLECTION = "users";
+
 
 
 // require and load dotenv
@@ -54,6 +56,9 @@ function handleError(res, reason, message, code) {
  *    GET: finds all contacts
  *    POST: creates a new contact
  */
+ 
+ app.get('/api', controllers.api.index);
+
 
 app.get("/contacts", function(req, res) {
   db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
