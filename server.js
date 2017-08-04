@@ -167,7 +167,7 @@ app.delete("/contacts/:id", function(req, res) {
  });
 
 app.post('/auth/signup', function (req, res) {
-  User.findOne({ email: req.body.email }, function (err, existingUser) {
+  db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, function (err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken.' });
     }
@@ -177,7 +177,7 @@ app.post('/auth/signup', function (req, res) {
       email: req.body.email,
       password: req.body.password
     });
-    user.save(function (err, result) {
+    db.collection(USERS_COLLECTION).save(function (err, result) {
       if (err) {
         res.status(500).send({ message: err.message });
       }
