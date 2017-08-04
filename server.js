@@ -92,7 +92,7 @@ app.post("/vendors", function(req, res) {
   var newVendor = req.body;
   newVendor.createDate = new Date();
 
-  db.collection(CONTACTS_COLLECTION).insertOne(newVendor, function(err, doc) {
+  db.collection(VENDORS_COLLECTION).insertOne(newVendor, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to create new vendor.");
     } else {
