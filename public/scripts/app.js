@@ -43,7 +43,7 @@ angular
             })
             .when("/new/vendor", {
                 controller: "VendorController",
-                templateUrl: "/templates/vendor.html"
+                templateUrl: "/templates/vendor.html",
                 resolve: {
                     vendors: function(Vendors) {
                         return Vendors.getVendors();
@@ -138,10 +138,9 @@ angular
             });
         }
     })
-    .controller("VendorController", function($scope, $location, Vendors) {
-        $scope.back = function() {
-            $location.path("#/");
-        }
+    .controller("VendorController", function(vendors, $scope, $location, Vendors) {
+        $scope.vendors = vendors.data;
+
 
         $scope.saveVendor = function(vendor) {
             Vendors.createVendor(vendor).then(function(doc) {
