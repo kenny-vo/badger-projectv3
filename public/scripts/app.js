@@ -4,8 +4,8 @@ angular
   .config(function($routeProvider, $locationProvider) {
         $routeProvider
             .when("/", {
-                templateUrl: "list.html",
                 controller: "ListController",
+                templateUrl: "list.html",
                 resolve: {
                     contacts: function(Contacts) {
                         return Contacts.getContacts();
@@ -44,6 +44,11 @@ angular
             .when("/new/vendor", {
                 controller: "VendorController",
                 templateUrl: "/templates/vendor.html"
+                resolve: {
+                    vendors: function(Vendors) {
+                        return Vendors.getVendors();
+                    }
+                }
             })
             .otherwise({
                 redirectTo: "/"
@@ -56,6 +61,14 @@ angular
                   return response;
               }, function(response) {
                   alert("Error creating vendor.");
+              });
+      }
+      this.getVendors = function() {
+          return $http.get("/vendors").
+              then(function(response) {
+                  return response;
+              }, function(response) {
+                  alert("Error finding vendors.");
               });
       }
     })
