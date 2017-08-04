@@ -141,11 +141,9 @@ angular
     .controller("VendorController", function(vendors, $scope, $location, Vendors) {
         $scope.vendors = vendors.data;
 
-
         $scope.saveVendor = function(vendor) {
             Vendors.createVendor(vendor).then(function(doc) {
-                var vendorUrl = "/vendor/" + doc.data._id;
-                $location.path(vendorUrl);
+
             }, function(response) {
                 alert(response);
             });
