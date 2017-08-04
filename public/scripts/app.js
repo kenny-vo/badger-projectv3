@@ -41,10 +41,25 @@ angular
                 controller: "EditContactController",
                 templateUrl: "/templates/contact.html"
             })
+            .when("/new/vendor", {
+                controller: "VendorController",
+                templateUrl: "/templates/vendor.html"
+            })
             .otherwise({
                 redirectTo: "/"
             })
     })
+    .service("Vendors", function($http) {
+      this.createVendor = function(vendor) {
+          return $http.post("/vendors", vendor).
+              then(function(response) {
+                  return response;
+              }, function(response) {
+                  alert("Error creating vendor.");
+              });
+      }
+    })
+
     .service("Contacts", function($http) {
         this.getContacts = function() {
             return $http.get("/contacts").
@@ -105,6 +120,20 @@ angular
             Contacts.createContact(contact).then(function(doc) {
                 var contactUrl = "/contact/" + doc.data._id;
                 $location.path(contactUrl);
+            }, function(response) {
+                alert(response);
+            });
+        }
+    })
+    .controller("VendorController", function($scope, $location, Vendors) {
+        $scope.back = function() {
+            $location.path("#/");
+        }
+
+        $scope.saveVendor = function(vendor) {
+            Vendors.createVendor(vendor).then(function(doc) {
+                var vendorUrl = "/vendor/" + doc.data._id;
+                $location.path(vendorUrl);
             }, function(response) {
                 alert(response);
             });

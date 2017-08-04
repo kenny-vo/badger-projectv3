@@ -7,6 +7,7 @@ var hbs = require('hbs');
 var auth = require('./resources/auth');
 
 var CONTACTS_COLLECTION = "contacts";
+var VENDORS_COLLECTION = "vendors";
 
 
 // require and load dotenv
@@ -68,13 +69,32 @@ app.post("/contacts", function(req, res) {
   var newContact = req.body;
   newContact.createDate = new Date();
 
-  if (!(req.body.firstName || req.body.lastName)) {
-    handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
-  }
-
   db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to create new contact.");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
+  });
+});
+
+app.get("/vendors", function(req, res) {
+  db.collection(VENDORS_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get vendors.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+app.post("/vendors", function(req, res) {
+  var newVendor = req.body;
+  newVendor.createDate = new Date();
+
+  db.collection(CONTACTS_COLLECTION).insertOne(newVendor, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to create new vendor.");
     } else {
       res.status(201).json(doc.ops[0]);
     }
