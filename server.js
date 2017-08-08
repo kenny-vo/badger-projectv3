@@ -181,7 +181,7 @@ app.post('/auth/signup', function (req, res) {
       email: req.body.email,
       password: req.body.password
     });
-    db.collection().save(function (err, result) {
+    db.collection(USERS_COLLECTION).save(function (err, result) {
       if (err) {
         console.log(err);
         return res.status(500).send({ message: err.message });
