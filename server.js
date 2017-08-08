@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var User = require('./models/user');
-var Vendor = require('./models/vendor');
 
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
@@ -94,25 +93,16 @@ app.get("/vendors", function(req, res) {
 });
 
 app.post("/vendors", function(req, res) {
-  var newVendor = new Vendor(req.body);
+  var newVendor = req.body;
   newVendor.createDate = new Date();
 
-  newVendor.save(function (err, savedVendor) {
+  db.collection(VENDORS_COLLECTION).insertOne(newVendor, function(err, doc) {
     if (err) {
-      res.status(500).json({error: err.message});
+      handleError(res, err.message, "Failed to create new vendor.");
     } else {
-      vendor.save();
-      res.json(savedVendor);
+      res.status(201).json(doc.ops[0]);
     }
-  })
-
-  // db.collection(VENDORS_COLLECTION).insertOne(newVendor, function(err, doc) {
-  //   if (err) {
-  //     handleError(res, err.message, "Failed to create new vendor.");
-  //   } else {
-  //     res.status(201).json(doc.ops[0]);
-  //   }
-  // });
+  });
 });
 
 /*  "/contacts/:id"
