@@ -1,15 +1,16 @@
 var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
+//ar mongodb = require("mongodb");
 var mongoose = require("mongoose");
-var ObjectID = mongodb.ObjectID;
+//var ObjectID = mongodb.ObjectID;
 var hbs = require('hbs');
 var auth = require('./resources/auth');
+var userController = require('./controller/user');
 
-var CONTACTS_COLLECTION = "contacts";
+/*var CONTACTS_COLLECTION = "contacts";
 var VENDORS_COLLECTION = "vendors";
-var USERS_COLLECTION = "users";
+var USERS_COLLECTION = "users";*/
 
 
 
@@ -22,11 +23,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var User = require('./models/user');
+var contact = require('./models/listing');
 
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 mongoose.connect(process.env.MONGODB_URI);
+var server = app.listen(process.env.PORT || 8080, function () {
+  var port = server.address().port;
+  console.log("App now running on port", port);
+});/*
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
@@ -35,15 +41,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   }
 
   // Save database object from the callback for reuse.
-  db = database;
+  //db = database;
   console.log("Database connection ready");
   // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
-  });
 
-});
+
+});*/
 
 
 // CONTACTS API ROUTES BELOW
@@ -60,7 +63,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/contacts", function(req, res) {
-  db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
+  contact.find({}, function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get contacts.");
     } else {
@@ -148,54 +151,7 @@ app.delete("/contacts/:id", function(req, res) {
  * Auth Routes
  */
 
- app.get('/api/me', auth.ensureAuthenticated, function (req, res) {
-   User.findById(req.user, function (err, user) {
-     res.send(user.populate('posts'));
-   });
- });
-
- app.put('/api/me', auth.ensureAuthenticated, function (req, res) {
-   User.findById(req.user, function (err, user) {
-     if (!user) {
-       return res.status(400).send({ message: 'User not found.' });
-     }
-     user.displayName = req.body.displayName || user.displayName;
-     user.username = req.body.username || user.username;
-     user.email = req.body.email || user.email;
-     user.save(function(err) {
-       res.status(200).end();
-     });
-   });
- });
-
-app.post('/auth/signup', function (req, res) {
-  db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, function (err, existingUser) {
-    if (existingUser) {
-      return res.status(409).send({ message: 'Email is already taken.' });
-    }
-
-    if(err) {
-      return res.json({err});
-    }
-    var user = new User({
-      displayName: req.body.displayName,
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    });
-    //mongodb://kenny:kenny@ds127783.mlab.com:27783/kennytest123
-
-    console.log(user);
-    user.save(function (err, result) {
-      if (err) {
-        console.log(err);
-        return res.status(500).send({ message: err.message });
-      }
-      console.log('dat a inserted without error');
-      return res.send({ token: auth.createJWT(result) });
-    });
-  });
-});
+app.post('/auth/signup', userController.signup);
 
 app.post('/auth/login', function (req, res) {
   db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, '+password', function (err, user) {

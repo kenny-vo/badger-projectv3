@@ -179,6 +179,7 @@ angular
             Contacts.deleteContact(contactId);
         }
     })
+
     .controller('AuthController', ['$scope', '$auth', '$location',
       function ($scope, $auth, $location) {
         // if $scope.currentUser, redirect to '/profile'
@@ -196,7 +197,7 @@ angular
               // set token (https://github.com/sahat/satellizer#authsettokentoken)
               $auth.setToken(response.data.token);
               // call $scope.isAuthenticated to set $scope.currentUser
-              $scope.isAuthenticated();
+              $auth.isAuthenticated();
               // clear sign up form
               $scope.user = {};
               // redirect to '/profile'
@@ -213,46 +214,13 @@ angular
               // set token (https://github.com/sahat/satellizer#authsettokentoken)
               $auth.setToken(response.data.token);
               // call $scope.isAuthenticated to set $scope.currentUser
-              $scope.isAuthenticated();
+              $auth.isAuthenticated();
               // clear sign up form
               $scope.user = {};
               // redirect to '/profile'
               $location.path('/profile');
             }, function (error) {
               console.error(error);
-            });
-        };
-      }]
-    )
-    .controller('MainCtrl', ['$scope', '$auth', '$http', '$location',
-    	function ($scope, $auth, $http, $location) {
-        $scope.isAuthenticated = function() {
-          // send GET request to '/api/me'
-          $http.get('/api/me')
-            .then(function (response) {
-              // if response.data comes back, set $scope.currentUser = response.data
-              if (response.data) {
-                $scope.currentUser = response.data;
-              } else {
-                // otherwise remove token (https://github.com/sahat/satellizer#authremovetoken)
-                $auth.removeToken();
-              }
-            }, function (error) {
-              console.error(error);
-              $auth.removeToken();
-            });
-        };
-
-        $scope.isAuthenticated();
-
-        $scope.logout = function() {
-          // logout (https://github.com/sahat/satellizer#authlogout)
-          $auth.logout()
-            .then(function() {
-              // set $scope.currentUser = null
-              $scope.currentUser = null;
-              // redirect to '/login'
-              $location.path('/login');
             });
         };
       }]
@@ -274,3 +242,20 @@ angular
             });
         };
     }]);
+
+SignupController.$inject = ["$location", "Account"]; // minification protection
+function SignupController ($location, Account) {
+  var vm = this;
+  vm.new_user = {}; // form data
+
+  vm.signup = function() {
+    Account
+      .signup(vm.new_user)
+      .then(
+        function (response) {
+          vm.new_user = {}; // clear sign up form
+          $location.path('/profile'); // redirect to '/profile'
+        }
+      );
+  };
+}
