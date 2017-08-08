@@ -167,6 +167,8 @@ app.delete("/contacts/:id", function(req, res) {
  });
 
 app.post('/auth/signup', function (req, res) {
+  console.log('here');
+  return res.send('app hitting the endpoint');
   db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, function (err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken.' });
