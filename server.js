@@ -94,7 +94,7 @@ app.get("/vendors", function(req, res) {
 });
 
 app.post("/vendors", function(req, res) {
-  var newVendor = req.body;
+  var newVendor = new Vendor(req.body);
   newVendor.createDate = new Date();
 
   newVendor.save(function (err, savedVendor) {
