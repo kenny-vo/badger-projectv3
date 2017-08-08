@@ -175,19 +175,20 @@ app.post('/auth/signup', function (req, res) {
     if(err) {
       return res.json({err});
     }
+    console.log('instantiating the model');
     var user = new User({
       displayName: req.body.displayName,
       username: req.body.username,
       email: req.body.email,
       password: req.body.password
     });
-    db.collection(USERS_COLLECTION).save(function (err, result) {
+    user.save(function (err, result) {
       if (err) {
         console.log(err);
         return res.status(500).send({ message: err.message });
       }
       console.log('dat a inserted without error');
-      res.send({ token: auth.createJWT(result) });
+      return res.send({ token: auth.createJWT(result) });
     });
   });
 });
