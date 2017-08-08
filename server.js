@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var User = require('./models/user');
+var Vendor = require('./models/vendor');
 
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
@@ -96,13 +97,22 @@ app.post("/vendors", function(req, res) {
   var newVendor = req.body;
   newVendor.createDate = new Date();
 
-  db.collection(VENDORS_COLLECTION).insertOne(newVendor, function(err, doc) {
+  newVendor.save(function (err, savedVendor) {
     if (err) {
-      handleError(res, err.message, "Failed to create new vendor.");
+      res.status(500).json({error: err.message});
     } else {
-      res.status(201).json(doc.ops[0]);
+      vendor.save();
+      res.json(savedVendor);
     }
   });
+  //
+  // db.collection(VENDORS_COLLECTION).insertOne(newVendor, function(err, doc) {
+  //   if (err) {
+  //     handleError(res, err.message, "Failed to create new vendor.");
+  //   } else {
+  //     res.status(201).json(doc.ops[0]);
+  //   }
+  // });
 });
 
 /*  "/contacts/:id"
