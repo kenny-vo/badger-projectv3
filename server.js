@@ -167,11 +167,13 @@ app.delete("/contacts/:id", function(req, res) {
  });
 
 app.post('/auth/signup', function (req, res) {
-  console.log('here');
-  return res.send('app hitting the endpoint');
   db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, function (err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken.' });
+    }
+
+    if(err) {
+      return res.json({err});
     }
     var user = new User({
       displayName: req.body.displayName,
@@ -181,8 +183,10 @@ app.post('/auth/signup', function (req, res) {
     });
     db.collection().save(function (err, result) {
       if (err) {
-        res.status(500).send({ message: err.message });
+        console.log(err);
+        return res.status(500).send({ message: err.message });
       }
+      console.log('dat a inserted without error');
       res.send({ token: auth.createJWT(result) });
     });
   });
