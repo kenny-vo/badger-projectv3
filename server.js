@@ -198,7 +198,7 @@ app.post('/auth/signup', function (req, res) {
 });
 
 app.post('/auth/login', function (req, res) {
-  User.findOne({ email: req.body.email }, '+password', function (err, user) {
+  db.collection(USERS_COLLECTION).findOne({ email: req.body.email }, '+password', function (err, user) {
     if (!user) {
       return res.status(401).send({ message: 'Invalid email or password.' });
     }
