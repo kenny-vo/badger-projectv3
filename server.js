@@ -2,6 +2,7 @@ var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
+var mongoose = require("mongoose");
 var ObjectID = mongodb.ObjectID;
 var hbs = require('hbs');
 var auth = require('./resources/auth');
@@ -25,7 +26,7 @@ var User = require('./models/user');
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
-
+mongoose.connect(process.env.MONGODB_URI);
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
@@ -36,13 +37,14 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   // Save database object from the callback for reuse.
   db = database;
   console.log("Database connection ready");
-
   // Initialize the app.
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
   });
+
 });
+
 
 // CONTACTS API ROUTES BELOW
 
@@ -175,13 +177,15 @@ app.post('/auth/signup', function (req, res) {
     if(err) {
       return res.json({err});
     }
-    console.log('instantiating the model');
     var user = new User({
       displayName: req.body.displayName,
       username: req.body.username,
       email: req.body.email,
       password: req.body.password
     });
+    //mongodb://kenny:kenny@ds127783.mlab.com:27783/kennytest123
+
+    console.log(user);
     user.save(function (err, result) {
       if (err) {
         console.log(err);
